@@ -46,10 +46,6 @@
                                         <label>Tanggal</label>
                                         <input type="date" class="form-control form-control" id="tglEdit" name="tglEdit" value="{{$sale->date}}" required>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nama</label>
                                         <input type="text" class="form-control form-control" id="nameEdit" name="nameEdit" value="{{$sale->name}}" autofocus required>
@@ -58,12 +54,12 @@
                                         <label>Telephone</label>
                                         <input type="number" class="form-control form-control" id="phoneEdit" name="phoneEdit" value="{{$sale->phone}}" required>
                                     </div>
+                                </div>
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nama Produk</label>
                                         <input type="text" class="form-control form-control" id="productEdit" name="productEdit" value="{{$sale->product}}" required>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nama Toko</label>
                                         <input type="text" class="form-control form-control" id="storeEdit" name="storeEdit" value="{{$sale->store}}" required>
@@ -72,19 +68,15 @@
                                         <label>Resi</label>
                                         <input type="date" class="form-control form-control" id="resiEdit" name="resiEdit" value="{{$sale->date}}" required>
                                     </div>
+                                </div>
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cara Pakai</label>
                                         <input type="date" class="form-control form-control" id="htuseEdit" name="htuseEdit" value="{{$sale->htuse}}" required>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Ulasan</label>
                                         <input type="date" class="form-control form-control" id="ulasanEdit" name="ulasanEdit" value="{{$sale->ulasan}}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>RO</label>
-                                        <input type="text" class="form-control form-control" id="roEdit" name="roEdit" value="{{$sale->ro}}">
                                     </div>
                                     <div class="form-group">
                                         <label>Keterangan</label>

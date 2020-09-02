@@ -36,6 +36,11 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
+        $ulasan = $request->input('ulasan');
+
+        if ($ulasan == "") {
+            $ulasan = "0000-00-00";
+        }
         $data = [
             'date' => $request->input('tgl'),
             'name' => $request->input('name'),
@@ -44,8 +49,7 @@ class PenjualanController extends Controller
             'store' => $request->input('store'),
             'resi' => $request->input('resi'),
             'htuse' => $request->input('htuse'),
-            'ulasan' => $request->input('ulasan'),
-            'ro' => $request->input('ro'),
+            'ulasan' => $ulasan,
             'ket' => $request->input('ket')
         ];
 
@@ -100,7 +104,6 @@ class PenjualanController extends Controller
         $sale->resi = $request->input('resiEdit');
         $sale->htuse = $request->input('htuseEdit');
         $sale->ulasan = $request->input('ulasanEdit');
-        $sale->ro = $request->input('roEdit');
         $sale->ket = $request->input('ketEdit');
 
         $sale->save();
