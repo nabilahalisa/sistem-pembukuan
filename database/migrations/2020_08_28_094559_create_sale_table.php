@@ -23,7 +23,6 @@ class CreateSaleTable extends Migration
             $table->date('resi');
             $table->date('htuse');
             $table->date('ulasan')->nullable();
-            $table->string('ro')->nullable();
             $table->string('ket')->nullable();
             $table->timestamps();
         });

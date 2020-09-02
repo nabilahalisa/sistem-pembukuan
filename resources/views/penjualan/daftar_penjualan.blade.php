@@ -42,19 +42,17 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="daftarPenjualan" class="display table table-striped table-hover" style="width:100%">
+                            <table id="multi-filter-select" class="display table table-striped table-hover" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th rowspan="2" style="width: 5%">No.</th>
                                         <th rowspan="2">Tanggal</th>
                                         <th rowspan="2">Nama</th>
-                                        <!-- <th rowspan="2">Telephone</th> -->
+                                        <th rowspan="2">Telephone</th>
                                         <th rowspan="2">Produk</th>
                                         <th rowspan="2">Toko</th>
                                         <th colspan="3" class="text-center">Follow Up CS</th>
-                                        <!-- <th rowspan="2">RO</th>
-                                        <th rowspan="2">Ket</th> -->
-                                        <th rowspan="2" style="width: 10%">Aksi</th>
+                                        <!-- <th rowspan="2">Ket</th> -->
+                                        <th rowspan="2" style="width: 5%">Aksi</th>
                                     </tr>
                                     <tr>
                                         <th>Resi</th>
@@ -62,13 +60,24 @@
                                         <th>Ulasan</th>
                                     </tr>
                                 </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Tanggal</th>
+                                        <th>Nama</th>
+                                        <th>Telephone</th>
+                                        <th>Produk</th>
+                                        <th>Toko</th>
+                                        <th>Resi</th>
+                                        <th>C. Pakai</th>
+                                        <th>Ulasan</th>
+                                    </tr>
+                                </tfoot>
                                 <tbody>
                                     @foreach ($sales as $sale)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$sale->date}}</td>
                                         <td>{{$sale->name}}</td>
-                                        <!-- <td>{{$sale->phone}}</td> -->
+                                        <td>{{$sale->phone}}</td>
                                         <td>{{$sale->product}}</td>
                                         <td>{{$sale->store}}</td>
                                         <td>{{$sale->resi}}</td>
@@ -84,8 +93,6 @@
                                                 <a class="dropdown-item" data-toggle="modal" data-target="#hapusModal{{$sale->id}}">Hapus</a>
                                             </div>
                                         </td>
-                                        <!-- <td>j</td>
-                                        <td>k</td> -->
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -99,6 +106,7 @@
 </div>
 
 @endsection
+
 
 @section('modal')
 <!-- Hapus Modal -->
@@ -132,11 +140,32 @@
 @endforeach
 @endsection
 
+
 @section('script')
 <script>
     $(document).ready(function() {
-        $('#daftarPenjualan').DataTable({
+        $('#multi-filter-select').DataTable({
             "pageLength": 10,
+            initComplete: function() {
+                this.api().columns().every(function() {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
         });
     });
 </script>

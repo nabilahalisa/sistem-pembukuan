@@ -45,7 +45,6 @@ class PenjualanController extends Controller
             'resi' => $request->input('resi'),
             'htuse' => $request->input('htuse'),
             'ulasan' => $request->input('ulasan'),
-            'ro' => $request->input('ro'),
             'ket' => $request->input('ket')
         ];
 
@@ -100,7 +99,6 @@ class PenjualanController extends Controller
         $sale->resi = $request->input('resiEdit');
         $sale->htuse = $request->input('htuseEdit');
         $sale->ulasan = $request->input('ulasanEdit');
-        $sale->ro = $request->input('roEdit');
         $sale->ket = $request->input('ketEdit');
 
         $sale->save();

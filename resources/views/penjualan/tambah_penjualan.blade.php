@@ -44,10 +44,6 @@
                                         <label>Tanggal</label>
                                         <input type="date" class="form-control form-control" id="tgl" name="tgl" required>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nama</label>
                                         <input type="text" class="form-control form-control" id="name" name="name" autofocus required>
@@ -56,12 +52,12 @@
                                         <label>Telephone</label>
                                         <input type="number" class="form-control form-control" id="phone" name="phone" required>
                                     </div>
+                                </div>
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nama Produk</label>
                                         <input type="text" class="form-control form-control" id="product" name="product" required>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nama Toko</label>
                                         <input type="text" class="form-control form-control" id="store" name="store" required>
@@ -70,19 +66,15 @@
                                         <label>Resi</label>
                                         <input type="date" class="form-control form-control" id="resi" name="resi" required>
                                     </div>
+                                </div>
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cara Pakai</label>
                                         <input type="date" class="form-control form-control" id="htuse" name="htuse" required>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Ulasan</label>
                                         <input type="date" class="form-control form-control" id="ulasan" name="ulasan">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>RO</label>
-                                        <input type="text" class="form-control form-control" id="ro" name="ro">
                                     </div>
                                     <div class="form-group">
                                         <label>Keterangan</label>
@@ -124,7 +116,7 @@
                 }
             })
         }
-        
+
         $('#submitData').click(function(e) {
             e.preventDefault();
             swalLoading();
@@ -140,7 +132,6 @@
                     'resi': $('#resi').val(),
                     'htuse': $('#htuse').val(),
                     'ulasan': $('#ulasan').val(),
-                    'ro': $('#ro').val(),
                     'ket': $('#ket').val()
                 },
                 url: "{!!  route('penjualan.tambah') !!}",
