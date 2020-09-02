@@ -21,7 +21,7 @@
                         <form method="POST" action="{{route('login')}}">
                             @csrf
                             <div class="form-group">
-                                <input type="text" class="form-control form-control" id="name" name="name" placeholder="Username">
+                                <input type="text" class="form-control form-control" id="name" name="name" placeholder="Username" autofocus>
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control form-control" id="password" name="password" placeholder="Password">
