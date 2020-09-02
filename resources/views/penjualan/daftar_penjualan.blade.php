@@ -42,7 +42,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="daftarPenjualan" class="display table table-striped table-hover" style="width:100%">
+                            <table id="daftarPenjualan" class="display table table-striped table-hover cell-border" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th rowspan="2" style="width: 5%">No.</th>
