@@ -42,7 +42,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="multi-filter-select" class="display table table-striped table-hover cell-border" style="width:100%">
+                            <table id="daftarTable" class="display table table-striped table-hover cell-border" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th rowspan="2">Tanggal</th>
@@ -75,14 +75,14 @@
                                 <tbody>
                                     @foreach ($sales as $sale)
                                     <tr>
-                                        <td>{{$sale->date}}</td>
+                                        <td>{{$sale->date_list}}</td>
                                         <td>{{$sale->name}}</td>
                                         <td>{{$sale->phone}}</td>
                                         <td>{{$sale->product}}</td>
-                                        <td>{{$sale->store}}</td>
-                                        <td>{{$sale->resi}}</td>
-                                        <td>{{$sale->htuse}}</td>
-                                        <td>{{$sale->ulasan}}</td>
+                                        <td>{{@$sale->store??'-'}}</td>
+                                        <td>{{@$sale->resi_list??'-'}}</td>
+                                        <td>{{@$sale->htuse_list??'-'}}</td>
+                                        <td>{{@$sale->ulasan_list??'-'}}</td>
                                         <td>
                                             <button class="btn btn-primary btn-border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button>
                                             <div class="dropdown-menu">
@@ -144,29 +144,27 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        $('#multi-filter-select').DataTable({
-            "pageLength": 10,
-            initComplete: function() {
-                this.api().columns().every(function() {
-                    var column = this;
-                    var select = $('<select class="form-control"><option value=""></option></select>')
-                        .appendTo($(column.footer()).empty())
-                        .on('change', function() {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
+        $('#daftarTable tfoot th').each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        } );
 
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
 
-                    column.data().unique().sort().each(function(d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>')
-                    });
-                });
-            }
+        var table = $('#daftarTable').DataTable();
+        
+        table.columns().every(function () {
+            var dataTableColumn = this;
+            var searchTextBoxes = $(this.footer()).find('input');
+
+            searchTextBoxes.on('keyup change', function () {
+                dataTableColumn.search(this.value).draw();
+            });
+
+            searchTextBoxes.on('click', function (e) {
+                e.stopPropagation();
+            });
         });
+
     });
 </script>
 @endsection

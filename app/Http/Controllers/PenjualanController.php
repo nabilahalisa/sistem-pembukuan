@@ -7,6 +7,11 @@ use App\Models\Penjualan;
 
 class PenjualanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -36,11 +41,7 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        $ulasan = $request->input('ulasan');
-
-        if ($ulasan == "") {
-            $ulasan = "0000-00-00";
-        }
+        
         $data = [
             'date' => $request->input('tgl'),
             'name' => $request->input('name'),
@@ -49,7 +50,7 @@ class PenjualanController extends Controller
             'store' => $request->input('store'),
             'resi' => $request->input('resi'),
             'htuse' => $request->input('htuse'),
-            'ulasan' => $ulasan,
+            'ulasan' => $request->input('ulasan'),
             'ket' => $request->input('ket')
         ];
 

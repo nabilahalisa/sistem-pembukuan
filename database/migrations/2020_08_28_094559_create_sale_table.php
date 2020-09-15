@@ -18,10 +18,10 @@ class CreateSaleTable extends Migration
             $table->date('date');
             $table->string('name', 50);
             $table->string('phone', 15);
-            $table->string('product', 255);
-            $table->string('store', 255);
-            $table->date('resi');
-            $table->date('htuse');
+            $table->string('product', 255)->nullable();
+            $table->string('store', 255)->nullable();
+            $table->date('resi')->nullable();
+            $table->date('htuse')->nullable();
             $table->date('ulasan')->nullable();
             $table->string('ket')->nullable();
             $table->timestamps();

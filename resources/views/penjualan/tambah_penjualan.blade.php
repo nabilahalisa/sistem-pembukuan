@@ -42,43 +42,43 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Tanggal</label>
-                                        <input type="date" class="form-control form-control" id="tgl" name="tgl" required>
+                                        <input type="date" class="form-control" id="tgl" name="tgl" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Nama</label>
-                                        <input type="text" class="form-control form-control" id="name" name="name" autofocus required>
+                                        <input type="text" class="form-control" id="name" name="name" autofocus required>
                                     </div>
                                     <div class="form-group">
                                         <label>Telephone</label>
-                                        <input type="number" class="form-control form-control" id="phone" name="phone" required>
+                                        <input type="text" class="form-control" id="phone" name="phone" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Nama Produk</label>
-                                        <input type="text" class="form-control form-control" id="product" name="product" required>
+                                        <input type="text" class="form-control" id="product" name="product" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Nama Toko</label>
-                                        <input type="text" class="form-control form-control" id="store" name="store" required>
+                                        <input type="text" class="form-control" id="store" name="store" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Resi</label>
-                                        <input type="date" class="form-control form-control" id="resi" name="resi" required>
+                                        <input type="date" class="form-control" id="resi" name="resi" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Cara Pakai</label>
-                                        <input type="date" class="form-control form-control" id="htuse" name="htuse" required>
+                                        <input type="date" class="form-control" id="htuse" name="htuse" required>
                                     </div>
                                     <div class="form-group">
                                         <label>Ulasan</label>
-                                        <input type="date" class="form-control form-control" id="ulasan" name="ulasan">
+                                        <input type="date" class="form-control" id="ulasan" name="ulasan">
                                     </div>
                                     <div class="form-group">
                                         <label>Keterangan</label>
-                                        <input type="text" class="form-control form-control" id="ket" name="ket">
+                                        <input type="text" class="form-control" id="ket" name="ket">
                                     </div>
                                 </div>
                             </div>
@@ -102,10 +102,6 @@
 <script src="{{asset('assets/js/alert.js')}}"></script>
 <script>
     $(document).ready(function() {
-        document.getElementById("tgl").valueAsDate = new Date()
-        document.getElementById("resi").valueAsDate = new Date()
-        document.getElementById("htuse").valueAsDate = new Date()
-
         var swalLoading = function() {
             swal.fire({
                 title: "Loading....",
