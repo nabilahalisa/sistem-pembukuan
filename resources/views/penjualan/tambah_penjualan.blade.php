@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Telephone</label>
-                                        <input type="text" class="form-control" id="phone" name="phone" required>
+                                        <input type="number" class="form-control" id="phone" name="phone" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">

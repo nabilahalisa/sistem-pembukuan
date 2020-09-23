@@ -26,6 +26,8 @@ Route::get('/register', 'Auth\RegisterController@showRegistrationForm')->name('r
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 
 
+Route::get('/penjualan/convert/', 'PenjualanController@convert')->name('convert');
+
 Route::resource('penjualan', 'PenjualanController')->names([
     'index'  => 'penjualan.index',
     'create' => 'penjualan.form.tambah',

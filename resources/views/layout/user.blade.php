@@ -29,7 +29,7 @@
 
 </head>
 
-<body>
+<body style="background-color: #343a40;">
     <div class="wrapper">
         @yield('content')
     </div>

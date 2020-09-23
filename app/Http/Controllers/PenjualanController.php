@@ -5,18 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Penjualan;
 
+use App\Exports\PenjualanExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class PenjualanController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $sales = Penjualan::all();
@@ -41,7 +44,7 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $data = [
             'date' => $request->input('tgl'),
             'name' => $request->input('name'),
@@ -127,5 +130,12 @@ class PenjualanController extends Controller
         $sale->delete();
 
         return redirect()->route('penjualan.index');
+    }
+    public function convert(Request $request)
+    {
+        $getId = $request->get('id');
+        $id = explode(',', $getId);
+
+        return Excel::download(new PenjualanExport($id), 'penjualan.xlsx');
     }
 }

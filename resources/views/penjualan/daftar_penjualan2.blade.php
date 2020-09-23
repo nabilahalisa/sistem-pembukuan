@@ -34,11 +34,7 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Daftar Penjualan</h4>
-                            <a class="btn btn-primary btn-round btn-border ml-auto" type="button" onclick="convert()">
-                                <i class="fa fa-file-export"></i>
-                                Export
-                            </a>&nbsp;&nbsp;
-                            <a class="btn btn-primary btn-round" href="{{route('penjualan.form.tambah')}}">
+                            <a class="btn btn-primary btn-round ml-auto" href="{{route('penjualan.form.tambah')}}">
                                 <i class="fa fa-plus"></i>
                                 Tambah
                             </a>
@@ -46,12 +42,9 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="daftarTable" class="display table table-striped table-hover cell-border" style="width:100%">
+                            <table id="multi-filter-select" class="display table table-striped table-hover" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th rowspan="2" style="width: 10%">
-                                            <input type="checkbox" id="checkAll" name="checkAll" onclick="select_all()"> Pilih Semua
-                                        </th>
                                         <th rowspan="2">Tanggal</th>
                                         <th rowspan="2">Nama</th>
                                         <th rowspan="2">Telephone</th>
@@ -69,13 +62,6 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <!-- <td>
-                                            <b>
-                                                <p id="textSelected" name="textSelected"></p>
-                                            </b>
-                                        </td> -->
-                                        <td></td>
-                                        <!-- <th></th> -->
                                         <th>Tanggal</th>
                                         <th>Nama</th>
                                         <th>Telephone</th>
@@ -89,15 +75,14 @@
                                 <tbody>
                                     @foreach ($sales as $sale)
                                     <tr>
-                                        <td><input type="checkbox" id="check" name="check" value="{{$sale->id}}" onclick="select()"></td>
-                                        <td>{{$sale->date_list}}</td>
+                                        <td>{{$sale->date}}</td>
                                         <td>{{$sale->name}}</td>
                                         <td>{{$sale->phone}}</td>
                                         <td>{{$sale->product}}</td>
-                                        <td>{{@$sale->store??'-'}}</td>
-                                        <td>{{@$sale->resi_list??'-'}}</td>
-                                        <td>{{@$sale->htuse_list??'-'}}</td>
-                                        <td>{{@$sale->ulasan_list??'-'}}</td>
+                                        <td>{{$sale->store}}</td>
+                                        <td>{{$sale->resi}}</td>
+                                        <td>{{$sale->htuse}}</td>
+                                        <td>{{$sale->ulasan}}</td>
                                         <td>
                                             <button class="btn btn-primary btn-border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button>
                                             <div class="dropdown-menu">
@@ -159,53 +144,29 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        $('#daftarTable tfoot th').each(function() {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        $('#multi-filter-select').DataTable({
+            "pageLength": 10,
+            initComplete: function() {
+                this.api().columns().every(function() {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
         });
-
-        var table = $('#daftarTable').DataTable();
-
-        table.columns().every(function() {
-            var dataTableColumn = this;
-            var searchTextBoxes = $(this.footer()).find('input');
-            searchTextBoxes.on('keyup change', function() {
-                dataTableColumn.search(this.value).draw();
-            });
-            searchTextBoxes.on('click', function(e) {
-                e.stopPropagation();
-            });
-        });
-
-        // var numberOfChecked = $('input:checkbox:checked').length;
-
-        // $('#textSelected').text(numberOfChecked + ' Data Dipilih');
-
     });
-
-    function select_all() {
-        var check = document.getElementById("checkAll");
-
-        if (check.checked == true) {
-            $("input:checkbox[name='check']").attr("checked", true);
-        } else {
-            $('input:checkbox').removeAttr('checked');
-        }
-
-        // var numberOfChecked = $('input:checkbox:checked').length;
-
-        // $('#textSelected').text(numberOfChecked + ' Data Dipilih');
-    }
-
-    function convert() {
-        var id_data = [];
-
-        $.each($("input[name='check']:checked"), function() {
-            id_data[id_data.length] = $(this).val();
-        });
-
-        window.location.href = "/penjualan/convert?id=" + id_data;
-        console.log(id_data);
-    }
 </script>
 @endsection
